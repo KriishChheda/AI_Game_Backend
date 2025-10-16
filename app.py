@@ -5,11 +5,10 @@ app = Flask(__name__)
 
 # Enable CORS for all routes and origins
 CORS(
-    app,
-    resources={r"/*": {"origins": "*"}},
-    supports_credentials=True,
-    methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type"],
+    app
+    # resources={r"/*": {"origins": "*"}},
+    # methods=["GET", "POST", "OPTIONS"],
+    # allow_headers=["Content-Type"],
 )
 
 # Initial game state
@@ -22,11 +21,11 @@ game_state = {
     "birds_left": 5,
 }
 
-@app.route("/apply_shot", methods=["POST", "OPTIONS"])
+@app.route("/apply_shot", methods=["POST"])
 def apply_shot():
     # Preflight requests (OPTIONS) are automatically handled by Flask-CORS
-    if request.method == "OPTIONS":
-        return jsonify({}), 200
+    # if request.method == "OPTIONS":
+    #     return jsonify({}), 200
 
     data = request.get_json() or {}
     angle = data.get("angle", 0)
